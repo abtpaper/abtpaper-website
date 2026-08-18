@@ -10,11 +10,23 @@ import Heritage from "../components/Heritage.astro";
 import CertBand from "../components/CertBand.astro";
 import ContactCTA from "../components/ContactCTA.astro";
 import SiteFooter from "../components/SiteFooter.astro";
-import { t, contact } from "../content/homeData";
+import { getHomeContent } from "../lib/content";
+
+const { t, contact, source } = await getHomeContent();
+console.log(`[home] content source: ${source}`);
 ---
 
 <BaseLayout title="ABT Digital Paper — paper reimagined">
-  <LandingHero bg="/photos/aerial.jpg" />
+  <LandingHero
+    bg={t.landing?.backgroundImage ?? "/photos/aerial.jpg"}
+    eyebrow={t.landing?.eyebrow}
+    titleLine1={t.landing?.titleLine1}
+    titleLine2={t.landing?.titleLine2}
+    intro={t.landing?.intro}
+    primaryCta={t.landing?.primaryCta}
+    secondaryCta={t.landing?.secondaryCta}
+    photoCredit={t.landing?.photoCredit}
+  />
 
   <SiteHeader activeNav="products" />
 
@@ -24,7 +36,7 @@ import { t, contact } from "../content/homeData";
     titleEm={t.pageHero.titleEm}
     body={t.pageHero.body}
     credit={t.pageHero.credit}
-    bg="/photos/paper_line.jpg"
+    bg={t.pageHero.backgroundImage ?? "/photos/paper_line.jpg"}
   />
 
   {

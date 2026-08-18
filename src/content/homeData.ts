@@ -8,6 +8,17 @@ export const contact = {
 };
 
 export const t = {
+  landing: {
+    eyebrow: "Paper Manufacturer · Jiangmen, Guangdong · Since 2008",
+    titleLine1: "Paper",
+    titleLine2: "Reimagined",
+    intro:
+      "ABT is a paper manufacturer in Jiangmen, Guangdong. Paper making, laminating, and coating since 2013. Our base paper and coated substrates become premium retail packaging, food-service wrappers, greeting cards, photo prints, and dozens of other finished forms.",
+    primaryCta: "Explore our products",
+    secondaryCta: "Talk to us",
+    backgroundImage: "/photos/aerial.jpg",
+    photoCredit: "ABT Digital Paper · Jiangmen site",
+  },
   pageHero: {
     eyebrow: "Our production",
     title: "One paper machine.",

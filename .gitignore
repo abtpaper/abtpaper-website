@@ -4,3 +4,8 @@ dist
 .DS_Store
 .env
 .env.local
+
+# Sanity Studio
+studio/dist
+studio/node_modules
+studio/.sanity

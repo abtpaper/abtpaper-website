@@ -1,8 +1,24 @@
 ---
 interface Props {
   bg?: string;
+  eyebrow?: string;
+  titleLine1?: string;
+  titleLine2?: string;
+  intro?: string;
+  primaryCta?: string;
+  secondaryCta?: string;
+  photoCredit?: string;
 }
-const { bg = "/photos/aerial.jpg" } = Astro.props;
+const {
+  bg = "/photos/aerial.jpg",
+  eyebrow = "Paper Manufacturer · Jiangmen, Guangdong · Since 2008",
+  titleLine1 = "Paper",
+  titleLine2 = "Reimagined",
+  intro = "ABT is a paper manufacturer in Jiangmen, Guangdong. Paper making, laminating, and coating since 2013. Our base paper and coated substrates become premium retail packaging, food-service wrappers, greeting cards, photo prints, and dozens of other finished forms.",
+  primaryCta = "Explore our products",
+  secondaryCta = "Talk to us",
+  photoCredit = "ABT Digital Paper · Jiangmen site",
+} = Astro.props;
 ---
 
 <section class="landing">
@@ -20,20 +36,16 @@ const { bg = "/photos/aerial.jpg" } = Astro.props;
   </div>
   <div class="landing-inner">
     <div class="landing-copy">
-      <div class="landing-eyebrow">Paper Manufacturer · Jiangmen, Guangdong · Since 2008</div>
+      <div class="landing-eyebrow">{eyebrow}</div>
       <h1 class="landing-title">
-        Paper<span class="punct">.</span> Reimagined<span class="punct">.</span>
+        {titleLine1}<span class="punct">.</span> {titleLine2}<span class="punct">.</span>
       </h1>
-      <p class="landing-intro">
-        ABT is a paper manufacturer in Jiangmen, Guangdong. Paper making, laminating, and coating since 2013.
-        Our base paper and coated substrates become premium retail packaging, food-service wrappers, greeting cards,
-        photo prints, and dozens of other finished forms.
-      </p>
+      <p class="landing-intro">{intro}</p>
       <div class="landing-cta-row">
-        <a href="/#series-01" class="landing-cta-primary">Explore our products <span class="arr">→</span></a>
-        <a href="/#contact" class="link-arrow">Talk to us <span class="arr">→</span></a>
+        <a href="/#series-01" class="landing-cta-primary">{primaryCta} <span class="arr">→</span></a>
+        <a href="/#contact" class="link-arrow">{secondaryCta} <span class="arr">→</span></a>
       </div>
     </div>
   </div>
-  <div class="landing-photo-credit">ABT Digital Paper · Jiangmen site</div>
+  {photoCredit && <div class="landing-photo-credit">{photoCredit}</div>}
 </section>

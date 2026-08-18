@@ -4,6 +4,9 @@ on:
   push:
     branches: [main]
   workflow_dispatch: {}
+  # Sanity can also trigger this via a webhook after content edits.
+  repository_dispatch:
+    types: [sanity-content-update]
 
 jobs:
   deploy:
@@ -21,7 +24,10 @@ jobs:
 
       - run: npm ci
 
-      - run: npm run build
+      - name: Build (reads content from Sanity)
+        env:
+          SANITY_READ_TOKEN: ${{ secrets.SANITY_READ_TOKEN }}
+        run: npm run build
 
       - name: Publish to Cloudflare Pages
         uses: cloudflare/wrangler-action@v3
