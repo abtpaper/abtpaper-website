@@ -422,9 +422,12 @@ section.block {
   gap: 56px;
   align-items: center;
 }
-.series-page .series-page-visual,
+.series-page .series-page-visual {
+  flex: 1 1 45%;
+  min-width: 280px;
+}
 .series-page .series-page-copy {
-  flex: 1 1 0;
+  flex: 1 1 55%;
   min-width: 0;
 }
 .series-page.reverse .series-page-inner { flex-direction: row-reverse; }
@@ -526,10 +529,17 @@ section.block {
 }
 .series-page.alt .series-uses li { background: var(--paper); }
 .series-page-actions { display: flex; gap: 16px; flex-wrap: wrap; }
-@media (max-width: 640px) {
+/* Below this breakpoint, series-page stacks (photo above copy) so it works
+ * on phones AND iPad portrait. iPad Pro portrait is ~834px so we go 900. */
+@media (max-width: 900px) {
   .series-page .series-page-inner { flex-direction: column; gap: 32px; }
   .series-page.reverse .series-page-inner { flex-direction: column; }
-  .series-page-visual { aspect-ratio: 16/9; }
+  .series-page-visual {
+    aspect-ratio: 16/9;
+    width: 100%;
+    min-width: 0;
+    flex: 0 0 auto;
+  }
   .series-info-row { grid-template-columns: 1fr; gap: 4px; }
 }
 

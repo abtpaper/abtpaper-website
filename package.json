@@ -19,6 +19,7 @@
     "typescript": "^6.0.3"
   },
   "devDependencies": {
+    "playwright": "^1.62.1",
     "wrangler": "^4.123.0"
   }
 }

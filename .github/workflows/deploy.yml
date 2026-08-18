@@ -27,6 +27,7 @@ jobs:
       - name: Build (reads content from Sanity)
         env:
           SANITY_READ_TOKEN: ${{ secrets.SANITY_READ_TOKEN }}
+          WEB3FORMS_ACCESS_KEY: ${{ secrets.WEB3FORMS_ACCESS_KEY }}
         run: npm run build
 
       - name: Publish to Cloudflare Pages

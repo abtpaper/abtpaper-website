@@ -1,4 +1,6 @@
 ---
+import ContactForm from "./ContactForm.astro";
+
 interface Props {
   title: string;
   body: string;
@@ -39,8 +41,42 @@ const {
         <div class="contact-line"><span>{telLabel}</span><b>{tel}</b></div>
         <div class="contact-line"><span>{faxLabel}</span><b>{fax}</b></div>
         <div class="contact-line"><span>{emailLabel}</span><b>{email}</b></div>
-        <a href={`mailto:${email}`} class="btn-cta">{ctaLabel} <span class="arr">→</span></a>
+        <a href="#talk-form" class="btn-cta">{ctaLabel} <span class="arr">→</span></a>
       </div>
+    </div>
+
+    <div class="talk-form-wrap">
+      <div class="talk-form-head">
+        <span class="section-eyebrow">Or send us the details</span>
+        <h4 class="talk-form-heading">Talk to us — fill in what you're evaluating.</h4>
+      </div>
+      <ContactForm />
     </div>
   </div>
 </section>
+
+<style>
+  .talk-form-wrap {
+    margin-top: 64px;
+    padding-top: 56px;
+    border-top: 1px solid var(--hairline);
+    display: grid;
+    grid-template-columns: 240px 1fr;
+    gap: 56px;
+    align-items: start;
+  }
+  .talk-form-head { display: flex; flex-direction: column; gap: 18px; }
+  .talk-form-heading {
+    font-family: var(--font-sans);
+    font-size: clamp(22px, 2.3vw, 30px);
+    font-weight: 400;
+    line-height: 1.2;
+    letter-spacing: -0.015em;
+    color: var(--ink);
+    margin: 0;
+    max-width: 20ch;
+  }
+  @media (max-width: 900px) {
+    .talk-form-wrap { grid-template-columns: 1fr; gap: 24px; margin-top: 48px; padding-top: 40px; }
+  }
+</style>

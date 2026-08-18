@@ -1,0 +1,193 @@
+---
+// "Talk to us" web form. Submits via Web3Forms → emails overseas@abtpaper.com.
+// Access key is a public identifier (safe to expose in HTML) that Web3Forms
+// uses to route submissions to the pre-registered inbox. Set in an env var
+// so we can rotate it without a code change.
+const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
+---
+
+<form class="talk-form" id="talk-form" novalidate>
+  <!-- Web3Forms auth key + honeypot + email routing -->
+  <input type="hidden" name="access_key" value={accessKey} />
+  <input type="hidden" name="subject" value="ABT website — inquiry" />
+  <input type="hidden" name="from_name" value="ABT Digital Paper — website" />
+  <input type="checkbox" name="botcheck" style="display:none" tabindex="-1" autocomplete="off" />
+
+  <div class="tf-row">
+    <label>
+      <span class="tf-label">Name<em>*</em></span>
+      <input type="text" name="name" required autocomplete="name" />
+    </label>
+    <label>
+      <span class="tf-label">Company</span>
+      <input type="text" name="company" autocomplete="organization" />
+    </label>
+  </div>
+
+  <div class="tf-row">
+    <label>
+      <span class="tf-label">Email<em>*</em></span>
+      <input type="email" name="email" required autocomplete="email" />
+    </label>
+    <label>
+      <span class="tf-label">Country</span>
+      <input type="text" name="country" autocomplete="country-name" />
+    </label>
+  </div>
+
+  <div class="tf-row">
+    <label>
+      <span class="tf-label">Product interest</span>
+      <select name="product">
+        <option value="">— Select a series —</option>
+        <option value="Base Paper (offset / kraft)">Base Paper — offset / kraft</option>
+        <option value="PE-Laminated Base">PE-Laminated Base Paper</option>
+        <option value="Food-Grade Paper">Food-Grade Paper</option>
+        <option value="RC Photo Paper">RC-coated Photo Paper</option>
+        <option value="Other / not sure">Other / not sure</option>
+      </select>
+    </label>
+    <label>
+      <span class="tf-label">Estimated quantity</span>
+      <input type="text" name="quantity" placeholder="e.g. 5 tonnes/month" />
+    </label>
+  </div>
+
+  <label class="tf-full">
+    <span class="tf-label">Message</span>
+    <textarea name="message" rows="5" placeholder="Weight / finish / format needed, use case, timeline, anything else."></textarea>
+  </label>
+
+  <div class="tf-actions">
+    <button type="submit" class="btn-cta tf-submit">
+      Send inquiry <span class="arr">→</span>
+    </button>
+    <span class="tf-status" role="status" aria-live="polite"></span>
+  </div>
+
+  <p class="tf-privacy">
+    Your inquiry is sent directly to our sales team at
+    <b>overseas@abtpaper.com</b>. We reply within 1 – 2 business days.
+  </p>
+</form>
+
+<style>
+  .talk-form {
+    display: flex; flex-direction: column;
+    gap: 20px;
+    max-width: 700px;
+  }
+  .tf-row {
+    display: grid;
+    grid-template-columns: 1fr 1fr;
+    gap: 20px;
+  }
+  .tf-full { display: block; }
+  .talk-form label {
+    display: flex; flex-direction: column;
+    gap: 6px;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.08em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .tf-label em {
+    color: var(--red);
+    font-style: normal;
+    margin-left: 3px;
+  }
+  .talk-form input,
+  .talk-form select,
+  .talk-form textarea {
+    font-family: var(--font-sans);
+    font-size: 15px;
+    letter-spacing: 0;
+    color: var(--ink);
+    background: var(--paper);
+    border: 1px solid var(--hairline);
+    padding: 12px 14px;
+    text-transform: none;
+    width: 100%;
+    box-sizing: border-box;
+    border-radius: 0;
+  }
+  .talk-form input:focus,
+  .talk-form select:focus,
+  .talk-form textarea:focus {
+    outline: 2px solid var(--gold);
+    outline-offset: -1px;
+    border-color: var(--gold);
+  }
+  .talk-form textarea { resize: vertical; min-height: 120px; }
+  .tf-actions { display: flex; align-items: center; gap: 20px; margin-top: 4px; }
+  .tf-submit { cursor: pointer; border: none; font-family: inherit; }
+  .tf-submit[disabled] { opacity: 0.6; cursor: wait; }
+  .tf-status {
+    font-family: var(--font-mono);
+    font-size: 12px;
+    letter-spacing: 0.06em;
+    color: var(--muted);
+  }
+  .tf-status.ok { color: var(--green); }
+  .tf-status.err { color: var(--red); }
+  .tf-privacy {
+    font-family: var(--font-sans);
+    font-size: 12px;
+    color: var(--muted);
+    margin: 0;
+    line-height: 1.5;
+  }
+  .tf-privacy b { color: var(--ink); font-weight: 500; }
+  @media (max-width: 640px) {
+    .tf-row { grid-template-columns: 1fr; }
+  }
+</style>
+
+<script is:inline>
+  (function () {
+    const form = document.getElementById("talk-form");
+    if (!form) return;
+    const status = form.querySelector(".tf-status");
+    const btn = form.querySelector(".tf-submit");
+
+    form.addEventListener("submit", async (ev) => {
+      ev.preventDefault();
+      status.textContent = "";
+      status.className = "tf-status";
+      btn.disabled = true;
+      const oldLabel = btn.innerHTML;
+      btn.innerHTML = "Sending…";
+
+      const data = new FormData(form);
+      // Basic anti-bot: if the honeypot is filled, silently discard.
+      if (data.get("botcheck")) {
+        btn.disabled = false;
+        btn.innerHTML = oldLabel;
+        return;
+      }
+
+      try {
+        const res = await fetch("https://api.web3forms.com/submit", {
+          method: "POST",
+          body: data,
+        });
+        const json = await res.json();
+        if (json.success) {
+          form.reset();
+          status.textContent = "Sent — we'll be in touch.";
+          status.className = "tf-status ok";
+        } else {
+          status.textContent = json.message || "Send failed. Please email overseas@abtpaper.com directly.";
+          status.className = "tf-status err";
+        }
+      } catch (err) {
+        status.textContent = "Network error. Please email overseas@abtpaper.com directly.";
+        status.className = "tf-status err";
+      } finally {
+        btn.disabled = false;
+        btn.innerHTML = oldLabel;
+      }
+    });
+  })();
+</script>
