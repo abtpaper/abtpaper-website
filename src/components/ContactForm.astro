@@ -25,8 +25,8 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   <div class="tf-row">
     <label>
-      <span class="tf-label">Country</span>
-      <input type="text" name="country" autocomplete="country-name" />
+      <span class="tf-label">Country<em>*</em></span>
+      <input type="text" name="country" required autocomplete="country-name" />
     </label>
     <label>
       <span class="tf-label">City</span>
@@ -52,10 +52,10 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   <label class="tf-full">
     <span class="tf-label">Product interest</span>
-    <select name="product">
+    <select name="product" id="tf-product">
       <option value="">— Select a series (optional) —</option>
-      <option value="Base Paper (offset / kraft)">Base Paper — offset / kraft</option>
-      <option value="PE-Laminated Base">PE-Laminated Base Paper</option>
+      <option value="Base Paper">Base Paper — offset / kraft</option>
+      <option value="PE-Laminated Base Paper">PE-Laminated Base Paper</option>
       <option value="Food-Grade Paper">Food-Grade Paper</option>
       <option value="RC Photo Paper">RC-coated Photo Paper</option>
       <option value="Other / not sure">Other / not sure</option>
@@ -215,6 +215,36 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     if (!form) return;
     const status = form.querySelector(".tf-status");
     const btn = form.querySelector(".tf-submit");
+    const select = form.querySelector("#tf-product");
+
+    // ---- Series pre-selection ----------------------------------------
+    // Any link with data-series-name (Request a sample / Talk to us on
+    // each series section) sets the product dropdown to that series,
+    // then lets the normal anchor scroll to #contact fire.
+    function preselect(seriesName) {
+      if (!select || !seriesName) return;
+      for (const opt of select.options) {
+        if (opt.value === seriesName) {
+          select.value = opt.value;
+          // Brief gold flash so the user sees it changed.
+          select.style.transition = "background-color 0.6s";
+          select.style.backgroundColor = "var(--gold-soft)";
+          setTimeout(() => { select.style.backgroundColor = ""; }, 1400);
+          return;
+        }
+      }
+    }
+
+    document.addEventListener("click", (ev) => {
+      const link = ev.target.closest("[data-series-name]");
+      if (!link) return;
+      preselect(link.getAttribute("data-series-name"));
+    });
+
+    // Also handle ?series=... in the URL (shareable deep links).
+    const params = new URLSearchParams(location.search);
+    if (params.get("series")) preselect(params.get("series"));
+    // ------------------------------------------------------------------
 
     form.addEventListener("submit", async (ev) => {
       ev.preventDefault();
