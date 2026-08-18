@@ -1,0 +1,46 @@
+---
+interface Props {
+  title: string;
+  body: string;
+  sideTitle: string;
+  telLabel: string;
+  faxLabel: string;
+  emailLabel: string;
+  tel: string;
+  fax: string;
+  email: string;
+  ctaLabel: string;
+  id?: string;
+}
+const {
+  title,
+  body,
+  sideTitle,
+  telLabel,
+  faxLabel,
+  emailLabel,
+  tel,
+  fax,
+  email,
+  ctaLabel,
+  id = "contact",
+} = Astro.props;
+---
+
+<section class="block" id={id}>
+  <div class="container">
+    <div class="cta-block">
+      <div class="cta-copy">
+        <h3>{title}</h3>
+        <p>{body}</p>
+      </div>
+      <div class="cta-side">
+        <h4>{sideTitle}</h4>
+        <div class="contact-line"><span>{telLabel}</span><b>{tel}</b></div>
+        <div class="contact-line"><span>{faxLabel}</span><b>{fax}</b></div>
+        <div class="contact-line"><span>{emailLabel}</span><b>{email}</b></div>
+        <a href={`mailto:${email}`} class="btn-cta">{ctaLabel} <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+</section>

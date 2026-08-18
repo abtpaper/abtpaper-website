@@ -1,0 +1,32 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  large: string;
+  paragraphs: string[];
+  image: string;
+  imageAlt: string;
+  id?: string;
+}
+const { eyebrow, title, large, paragraphs, image, imageAlt, id } = Astro.props;
+---
+
+<section class="block" id={id} style="background: var(--paper-2);">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">{eyebrow}</span>
+      <div>
+        <h2 class="section-title">{title}</h2>
+      </div>
+    </div>
+    <div class="heritage">
+      <div class="heritage-copy">
+        <p class="large">{large}</p>
+        {paragraphs.map((p) => <p>{p}</p>)}
+      </div>
+      <div class="heritage-photo">
+        <img src={image} alt={imageAlt} />
+      </div>
+    </div>
+  </div>
+</section>

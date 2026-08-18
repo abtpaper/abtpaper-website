@@ -1,0 +1,39 @@
+---
+interface Props {
+  bg?: string;
+}
+const { bg = "/photos/aerial.jpg" } = Astro.props;
+---
+
+<section class="landing">
+  <img class="landing-bg" src={bg} alt="ABT Digital Paper factory, aerial view" />
+  <div class="landing-overlay"></div>
+  <div class="landing-nav">
+    <a href="/" class="brand" aria-label="ABT Digital Paper">
+      <img class="brand-logo" src="/abt_logo.png" alt="ABT Digital Paper" />
+    </a>
+    <div class="tools">
+      <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
+        <span data-theme-label>DARK</span>
+      </button>
+    </div>
+  </div>
+  <div class="landing-inner">
+    <div class="landing-copy">
+      <div class="landing-eyebrow">Paper Manufacturer · Jiangmen, Guangdong · Since 2008</div>
+      <h1 class="landing-title">
+        Paper<span class="punct">.</span> Reimagined<span class="punct">.</span>
+      </h1>
+      <p class="landing-intro">
+        ABT is a paper manufacturer in Jiangmen, Guangdong. Paper making, laminating, and coating since 2013.
+        Our base paper and coated substrates become premium retail packaging, food-service wrappers, greeting cards,
+        photo prints, and dozens of other finished forms.
+      </p>
+      <div class="landing-cta-row">
+        <a href="/#series-01" class="landing-cta-primary">Explore our products <span class="arr">→</span></a>
+        <a href="/#contact" class="link-arrow">Talk to us <span class="arr">→</span></a>
+      </div>
+    </div>
+  </div>
+  <div class="landing-photo-credit">ABT Digital Paper · Jiangmen site</div>
+</section>

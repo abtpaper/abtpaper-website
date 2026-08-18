@@ -1,0 +1,40 @@
+---
+interface Tile {
+  image: string;
+  imageAlt: string;
+  title: string;
+  sub: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  tiles: Tile[];
+}
+const { eyebrow, title, lede, tiles } = Astro.props;
+---
+
+<section class="manuf-band">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">{eyebrow}</span>
+      <div>
+        <h2 class="section-title">{title}</h2>
+        <p class="section-lede">{lede}</p>
+      </div>
+    </div>
+    <div class="manuf-grid">
+      {
+        tiles.map((t) => (
+          <div class="manuf-tile">
+            <img src={t.image} alt={t.imageAlt} />
+            <div class="caption">
+              <h4>{t.title}</h4>
+              <p>{t.sub}</p>
+            </div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

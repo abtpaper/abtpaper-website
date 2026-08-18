@@ -1,0 +1,82 @@
+---
+interface InfoRow {
+  k: string;
+  v: string;
+}
+
+interface Props {
+  num: string;
+  category: string;
+  title: string;
+  lede: string;
+  info: InfoRow[];
+  usesLabel: string;
+  uses: string[];
+  image: string;
+  imageAlt: string;
+  ctaSample: string;
+  ctaTalk: string;
+  contactHref: string;
+  altBg?: boolean;
+  reverse?: boolean;
+  id?: string;
+}
+
+const {
+  num,
+  category,
+  title,
+  lede,
+  info,
+  usesLabel,
+  uses,
+  image,
+  imageAlt,
+  ctaSample,
+  ctaTalk,
+  contactHref,
+  altBg = false,
+  reverse = false,
+  id,
+} = Astro.props;
+
+const classes = ["series-page"];
+if (altBg) classes.push("alt");
+if (reverse) classes.push("reverse");
+---
+
+<section class={classes.join(" ")} id={id}>
+  <div class="container">
+    <div class="series-page-inner">
+      <div class="series-page-visual">
+        <img src={image} alt={imageAlt} />
+        <div class="series-badge">Series {num}</div>
+      </div>
+      <div class="series-page-copy">
+        <div class="eyebrow">Series {num} · {category}</div>
+        <h2>{title}</h2>
+        <p class="lede">{lede}</p>
+        <div class="series-info">
+          {
+            info.map((row) => (
+              <div class="series-info-row">
+                <span class="k">{row.k}</span>
+                <span class="v">{row.v}</span>
+              </div>
+            ))
+          }
+        </div>
+        <div class="series-uses">
+          <h4>{usesLabel}</h4>
+          <ul>
+            {uses.map((u) => <li>{u}</li>)}
+          </ul>
+        </div>
+        <div class="series-page-actions">
+          <a href={contactHref} class="btn-cta">{ctaSample} <span class="arr">→</span></a>
+          <a href={contactHref} class="link-arrow">{ctaTalk} <span class="arr">→</span></a>
+        </div>
+      </div>
+    </div>
+  </div>
+</section>

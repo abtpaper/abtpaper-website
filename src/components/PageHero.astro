@@ -1,0 +1,26 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  titleEm?: string;
+  body: string;
+  credit?: string;
+  bg: string;
+}
+
+const { eyebrow, title, titleEm = "", body, credit = "", bg } = Astro.props;
+---
+
+<section class="page-hero" style={`background-image: linear-gradient(120deg, rgba(15,15,20,0.72) 0%, rgba(15,15,20,0.35) 55%, rgba(15,15,20,0.15) 100%), url("${bg}");`}>
+  <div class="page-hero-overlay"></div>
+  <div class="container">
+    <div class="page-hero-copy">
+      <div class="eyebrow">{eyebrow}</div>
+      <h2>
+        {title}{titleEm && <><br /><em>{titleEm}</em></>}
+      </h2>
+      <p>{body}</p>
+    </div>
+  </div>
+  {credit && <div class="page-hero-credit">{credit}</div>}
+</section>

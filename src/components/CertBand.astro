@@ -1,0 +1,51 @@
+---
+interface Mark {
+  image: string;
+  alt: string;
+  title: string;
+}
+interface Declaration {
+  key: string;
+  value: string;
+}
+interface Props {
+  heading: string;
+  headingSub: string;
+  marks: Mark[];
+  decTitle: string;
+  declarations: Declaration[];
+}
+const { heading, headingSub, marks, decTitle, declarations } = Astro.props;
+---
+
+<section class="cert-band">
+  <div class="container">
+    <div>
+      <h3 class="heading"><small>{headingSub}</small>{heading}</h3>
+    </div>
+    <div>
+      <div class="cert-marks">
+        {
+          marks.map((m) => (
+            <div class="cert-mark" title={m.title}>
+              <img src={m.image} alt={m.alt} />
+            </div>
+          ))
+        }
+      </div>
+      <div class="declarations">
+        <div class="dec-title">{decTitle}</div>
+        <dl class="dec-list">
+          {
+            declarations.map((d) => (
+              <div class="dec-row">
+                <dt>{d.key}</dt>
+                <dd>{d.value}</dd>
+              </div>
+            ))
+          }
+        </dl>
+      </div>
+    </div>
+  </div>
+</section>

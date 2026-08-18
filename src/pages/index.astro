@@ -1,0 +1,99 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import LandingHero from "../components/LandingHero.astro";
+import PageHero from "../components/PageHero.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import SeriesSection from "../components/SeriesSection.astro";
+import Capabilities from "../components/Capabilities.astro";
+import ManufBand from "../components/ManufBand.astro";
+import Heritage from "../components/Heritage.astro";
+import CertBand from "../components/CertBand.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { t, contact } from "../content/homeData";
+---
+
+<BaseLayout title="ABT Digital Paper — paper reimagined">
+  <LandingHero bg="/photos/aerial.jpg" />
+
+  <SiteHeader activeNav="products" />
+
+  <PageHero
+    eyebrow={t.pageHero.eyebrow}
+    title={t.pageHero.title}
+    titleEm={t.pageHero.titleEm}
+    body={t.pageHero.body}
+    credit={t.pageHero.credit}
+    bg="/photos/paper_line.jpg"
+  />
+
+  {
+    t.series.map((s) => (
+      <SeriesSection
+        num={s.num}
+        category={s.category}
+        title={s.title}
+        lede={s.lede}
+        info={s.info}
+        usesLabel={t.usesLabel}
+        uses={s.uses}
+        image={s.image}
+        imageAlt={s.imageAlt}
+        ctaSample={t.ctaSample}
+        ctaTalk={t.ctaTalk}
+        contactHref="#contact"
+        altBg={s.altBg}
+        reverse={s.reverse}
+        id={`series-${s.num}`}
+      />
+    ))
+  }
+
+  <Capabilities
+    eyebrow={t.capabilities.eyebrow}
+    title={t.capabilities.title}
+    lede={t.capabilities.lede}
+    caps={t.capabilities.caps}
+  />
+
+  <ManufBand
+    eyebrow={t.manuf.eyebrow}
+    title={t.manuf.title}
+    lede={t.manuf.lede}
+    tiles={t.manuf.tiles}
+  />
+
+  <Heritage
+    eyebrow={t.heritage.eyebrow}
+    title={t.heritage.title}
+    large={t.heritage.large}
+    paragraphs={t.heritage.paragraphs}
+    image={t.heritage.image}
+    imageAlt={t.heritage.imageAlt}
+    id="heritage"
+  />
+
+  <CertBand
+    heading={t.cert.heading}
+    headingSub={t.cert.headingSub}
+    marks={t.cert.marks}
+    decTitle={t.cert.decTitle}
+    declarations={t.cert.declarations}
+  />
+
+  <ContactCTA
+    title={t.contactSection.title}
+    body={t.contactSection.body}
+    sideTitle={t.contactSection.sideTitle}
+    telLabel={t.contactSection.telLabel}
+    faxLabel={t.contactSection.faxLabel}
+    emailLabel={t.contactSection.emailLabel}
+    tel={contact.tel}
+    fax={contact.fax}
+    email={contact.email}
+    ctaLabel={t.contactSection.ctaLabel}
+    id="contact"
+  />
+
+  <SiteFooter />
+</BaseLayout>

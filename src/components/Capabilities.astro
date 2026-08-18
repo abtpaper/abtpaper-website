@@ -1,0 +1,40 @@
+---
+interface Cap {
+  num: string;
+  unit: string;
+  desc: string;
+  em?: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  lede: string;
+  caps: Cap[];
+}
+const { eyebrow, title, lede, caps } = Astro.props;
+---
+
+<section class="block">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">{eyebrow}</span>
+      <div>
+        <h2 class="section-title">{title}</h2>
+        <p class="section-lede">{lede}</p>
+      </div>
+    </div>
+    <div class="capabilities-grid">
+      {
+        caps.map((c) => (
+          <div class="capability">
+            <div class="capability-num">
+              {c.num}{c.em && <em>{c.em}</em>}
+            </div>
+            <div class="capability-unit">{c.unit}</div>
+            <div class="capability-desc">{c.desc}</div>
+          </div>
+        ))
+      }
+    </div>
+  </div>
+</section>

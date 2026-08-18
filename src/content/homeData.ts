@@ -1,0 +1,152 @@
+// Homepage content. English only.
+// Will be replaced by Sanity queries later.
+
+export const contact = {
+  tel: "+86 (0)750 6419777",
+  fax: "+86 (0)750 6418777",
+  email: "overseas@abtpaper.com",
+};
+
+export const t = {
+  pageHero: {
+    eyebrow: "Our production",
+    title: "One paper machine.",
+    titleEm: "Every paper we make.",
+    body: "The 3.6-metre wet-end machine that runs every ABT roll — offset, kraft, PE-laminated, food-grade, and RC photo paper base. One line, one team, one furnish.",
+    credit: "Paper making line · Jiangmen plant",
+  },
+  series: [
+    {
+      num: "01",
+      category: "Base Paper",
+      title: "Uncoated base paper.",
+      lede: "Offset and kraft base paper made on our own paper machine. Offset for premium print, publishing, and greeting cards; kraft for retail bags, gift boxes, and industrial converting. Wound to your core, packed to your spec.",
+      info: [
+        { k: "Types", v: "Offset · Kraft" },
+        { k: "Weight range", v: "80 – 400 g/m²" },
+        { k: "Formats", v: "Rolls · sheets · OEM packaging" },
+      ],
+      uses: ["Retail packaging", "Gift boxes & bags", "Publishing & hardcover", "Greeting cards", "Industrial converting"],
+      image: "/photos/craned_roll.jpg",
+      imageAlt: "Finished paper roll being craned onto the winder at the Jiangmen plant",
+      altBg: false,
+      reverse: false,
+    },
+    {
+      num: "02",
+      category: "PE-Laminated Base Paper",
+      title: "PE-laminated base paper.",
+      lede: "Double-sided PE-laminated base paper for silver-halide converters and inkjet RC coating houses. The substrate our own RC photo paper is built on — and the one many external coating partners buy from us to build theirs.",
+      info: [
+        { k: "Sub-lines", v: "Silver-halide base · Inkjet RC base" },
+        { k: "Weight range", v: "150 – 270 g/m²" },
+        { k: "Coating", v: "LDPE + HDPE, both sides" },
+      ],
+      uses: ["Silver-halide photo paper", "Inkjet RC photo paper", "OEM coating projects", "Specialty converting"],
+      image: "/photos/pe_rollers.jpg",
+      imageAlt: "PE laminating rollers at the Jiangmen plant",
+      altBg: true,
+      reverse: true,
+    },
+    {
+      num: "03",
+      category: "Food-Grade Paper",
+      title: "Food-grade paper.",
+      lede: "Food-contact paper for converters producing paper straws, food-service wrappers, cup and cone paper, and packaged-food liners. Compliant with food-contact material requirements; documentation on request.",
+      info: [
+        { k: "Weight range", v: "80 – 100 g/m²" },
+        { k: "Compliance", v: "Food-contact grade" },
+        { k: "Formats", v: "Rolls · custom width" },
+      ],
+      uses: ["Paper straws", "Ice cream cone paper", "Food-service wrappers", "Cup & tray liners", "Packaged-food inserts"],
+      image: "/photos/coating.jpg",
+      imageAlt: "Calendar rollers with paper webbing",
+      altBg: false,
+      reverse: false,
+    },
+    {
+      num: "04",
+      category: "RC Photo Paper",
+      title: "RC-coated photo paper.",
+      lede: "Resin-coated photo paper for high-speed inkjet, photo-lab, and pro-imaging print. Six finishes, single or double-sided, converted to any commercial roll or sheet format — OEM/ODM packaging per client spec.",
+      info: [
+        { k: "Weight range", v: "170 – 300 g/m²" },
+        { k: "Finishes", v: "Glossy · Satin · Lustre · Silky · Canvas · Metallic" },
+        { k: "Formats", v: "Rolls 610 – 1,830 mm · Sheets A4, 3R, 4R, 5R" },
+      ],
+      uses: [
+        "Photo books & albums", "Photo prints", "Greeting cards", "Photo-lab minilab",
+        "High-speed inkjet press", "Indigo digital press",
+        "Water-based inkjet", "Eco-solvent inkjet", "Latex inkjet",
+        "Aqueous inkjet", "Solvent inkjet", "UV inkjet",
+      ],
+      image: "/photos/roll.jpg",
+      imageAlt: "Finished RC photo paper roll on the winder",
+      altBg: true,
+      reverse: true,
+    },
+  ],
+  usesLabel: "Common applications",
+  ctaSample: "Request a sample",
+  ctaTalk: "Talk to us",
+  capabilities: {
+    eyebrow: "Capabilities",
+    title: "A working coating line — and the pilot machine to prove it.",
+    lede: "Production lines running six days a week at our Jiangmen plant. A dedicated pilot line for customer R&D — where we take a new coating from concept, through wet-end trial, to converted, packed, and shipped sample.",
+    caps: [
+      { num: "5,000", em: "t", unit: "Per month · production capacity", desc: "60,000 tonnes of paper a year, on our own machine." },
+      { num: "3.6", em: "m", unit: "Paper machine width", desc: "A full-scale wet-end paper machine, not a coating-only line." },
+      { num: "45", em: "ac", unit: "Facility · Jiangmen site", desc: "Paper making, coating, converting, finishing, and warehousing — one site." },
+      { num: "17", em: "yr", unit: "In paper", desc: "Founded 2008. Production since 2013. ISO-certified since 2014." },
+    ],
+  },
+  manuf: {
+    eyebrow: "Manufacturing",
+    title: "Made in Jiangmen.",
+    lede: "Wet-end paper making, extrusion coating, calendar finishing, and slitting — all under one roof in our Jiangmen plant. What we ship is what we made.",
+    tiles: [
+      { image: "/photos/machine.jpg", imageAlt: "Wet-end paper machine on the Jiangmen line", title: "Wet-end paper making", sub: "Our own furnish · in-house" },
+      { image: "/photos/lab.jpg", imageAlt: "ABT quality-control and R&D lab", title: "QC & R&D lab", sub: "Every batch tested" },
+      { image: "/photos/warehouse_pano.jpg", imageAlt: "Finished-roll warehouse panorama", title: "Finished roll warehouse", sub: "Slit, packed, ready to ship" },
+    ],
+  },
+  heritage: {
+    eyebrow: "Heritage",
+    title: "A paper manufacturer, not a converter.",
+    large: "We make base paper on-site at our Jiangmen plant, coat and finish it in-house, and convert to any format your line requires — full size range of sheets and rolls, OEM/ODM packaging to your spec.",
+    paragraphs: [
+      "That vertical integration is why the base paper and the coating on top of it match: they were made for each other, in the same building, by the same people. Nothing about a roll of ABT paper is outsourced or someone else's problem.",
+      "The result is coating consistency across four-year production runs, food-contact grades that don't require a separate supplier's certificate, and pilot-line development that goes from concept to converted sample in weeks, not quarters.",
+    ],
+    image: "/photos/warehouse.jpg",
+    imageAlt: "Finished-roll warehouse at the Jiangmen site",
+  },
+  cert: {
+    heading: "Filed, current, and reviewed annually by SGS.",
+    headingSub: "Compliance & certifications",
+    marks: [
+      { image: "/certs/sgs_iso9001.jpg", alt: "SGS System Certification — ISO 9001:2015", title: "SGS System Certification · ISO 9001:2015 · Cert CN14/31465 · Valid Dec 2023 – Dec 2026" },
+      { image: "/certs/sgs_iso14001.jpg", alt: "SGS System Certification — ISO 14001:2015", title: "SGS System Certification · ISO 14001:2015 · Cert CN14/31156 · Valid Jan 2024 – Oct 2026" },
+      { image: "/certs/fsc.jpg", alt: "FSC® — the mark of responsible forestry", title: "FSC® Chain-of-Custody · Cert SGSHK-COC-011695 · Valid Jan 2025 – Jan 2030 · FSC® A000523" },
+      { image: "/certs/sgs_coc.jpg", alt: "SGS Chain-of-Custody Certification", title: "SGS Chain-of-Custody Certification · Cert SGSHK-COC-011695 · Certified since 22 Jan 2015" },
+      { image: "/certs/ukas.jpg", alt: "UKAS Management Systems 0005", title: "UKAS Management Systems accreditation 0005" },
+      { image: "/certs/iaf.jpg", alt: "IAF Member of Multilateral Recognition Arrangement", title: "IAF Member of Multilateral Recognition Arrangement" },
+    ],
+    decTitle: "Compliance declarations",
+    declarations: [
+      { key: "REACH", value: "Regulation (EC) 1907/2006 · Article 3(3) article · no SVHC substances at ≥ 0.1 % w/w" },
+      { key: "EUDR", value: "Regulation (EU) 2023/1115 · signed statement available on request" },
+      { key: "Food-contact", value: "Grade available · EU 1935/2004 & EU 10/2011 declarations on request" },
+      { key: "SDS", value: "Full 16-section Safety Data Sheet · English + Simplified Chinese · on request" },
+    ],
+  },
+  contactSection: {
+    title: "Send us the finished form. We'll make the paper.",
+    body: "Sample requests, technical questions, food-grade certifications, OEM coating projects. Answered by the coating team in Jiangmen — not a distant sales office.",
+    sideTitle: "Direct to the factory",
+    telLabel: "Tel",
+    faxLabel: "Fax",
+    emailLabel: "Email",
+    ctaLabel: "Request a sample",
+  },
+};
