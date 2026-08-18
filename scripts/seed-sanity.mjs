@@ -60,6 +60,16 @@ async function main() {
   }
   console.log('All assets uploaded.\n')
 
+
+// Every element inside an array field in Sanity must have a stable _key
+// for the Studio to track edits. Wrap arrays with this before writing.
+function keyed(items, prefix) {
+  return items.map((item, i) => ({
+    _key: `${prefix}-${String(i).padStart(2, '0')}`,
+    ...item,
+  }))
+}
+
   // ---------- Singleton documents ----------
   console.log('Writing singleton documents…')
 
@@ -76,7 +86,7 @@ async function main() {
       'B-2 Yinzhou Lake Paper Base',
       'Shuangshui Town, Xinhui District',
       'Jiangmen, Guangdong',
-    ],
+    ],  // plain strings, no _key needed
     salesAddress: [
       'Unit 701, No. 10 Jinju Rd',
       'Haizhu District, Guangzhou',
@@ -119,12 +129,12 @@ async function main() {
     title: 'A working coating line — and the pilot machine to prove it.',
     lede:
       'Production lines running six days a week at our Jiangmen plant. A dedicated pilot line for customer R&D — where we take a new coating from concept, through wet-end trial, to converted, packed, and shipped sample.',
-    caps: [
+    caps: keyed([
       {num: '5,000', em: 't', unit: 'Per month · production capacity', desc: '60,000 tonnes of paper a year, on our own machine.'},
       {num: '3.6', em: 'm', unit: 'Paper machine width', desc: 'A full-scale wet-end paper machine, not a coating-only line.'},
       {num: '45', em: 'ac', unit: 'Facility · Jiangmen site', desc: 'Paper making, coating, converting, finishing, and warehousing — one site.'},
       {num: '17', em: 'yr', unit: 'In paper', desc: 'Founded 2008. Production since 2013. ISO-certified since 2014.'},
-    ],
+    ], 'cap'),
   })
 
   await client.createOrReplace({
@@ -134,11 +144,11 @@ async function main() {
     title: 'Made in Jiangmen.',
     lede:
       'Wet-end paper making, extrusion coating, calendar finishing, and slitting — all under one roof in our Jiangmen plant. What we ship is what we made.',
-    tiles: [
+    tiles: keyed([
       {image: A.machine, imageAlt: 'Wet-end paper machine on the Jiangmen line', title: 'Wet-end paper making', sub: 'Our own furnish · in-house'},
       {image: A.lab, imageAlt: 'ABT quality-control and R&D lab', title: 'QC & R&D lab', sub: 'Every batch tested'},
       {image: A.warehouse_pano, imageAlt: 'Finished-roll warehouse panorama', title: 'Finished roll warehouse', sub: 'Slit, packed, ready to ship'},
-    ],
+    ], 'tile'),
   })
 
   await client.createOrReplace({
@@ -161,21 +171,21 @@ async function main() {
     _type: 'certBand',
     headingSub: 'Compliance & certifications',
     heading: 'Filed, current, and reviewed annually by SGS.',
-    marks: [
+    marks: keyed([
       {image: A.cert_sgs_iso9001, alt: 'SGS System Certification — ISO 9001:2015', title: 'SGS System Certification · ISO 9001:2015 · Cert CN14/31465 · Valid Dec 2023 – Dec 2026'},
       {image: A.cert_sgs_iso14001, alt: 'SGS System Certification — ISO 14001:2015', title: 'SGS System Certification · ISO 14001:2015 · Cert CN14/31156 · Valid Jan 2024 – Oct 2026'},
       {image: A.cert_fsc, alt: 'FSC® — the mark of responsible forestry', title: 'FSC® Chain-of-Custody · Cert SGSHK-COC-011695 · Valid Jan 2025 – Jan 2030 · FSC® A000523'},
       {image: A.cert_sgs_coc, alt: 'SGS Chain-of-Custody Certification', title: 'SGS Chain-of-Custody Certification · Cert SGSHK-COC-011695 · Certified since 22 Jan 2015'},
       {image: A.cert_ukas, alt: 'UKAS Management Systems 0005', title: 'UKAS Management Systems accreditation 0005'},
       {image: A.cert_iaf, alt: 'IAF Member of Multilateral Recognition Arrangement', title: 'IAF Member of Multilateral Recognition Arrangement'},
-    ],
+    ], 'cert-mark'),
     decTitle: 'Compliance declarations',
-    declarations: [
+    declarations: keyed([
       {key: 'REACH', value: 'Regulation (EC) 1907/2006 · Article 3(3) article · no SVHC substances at ≥ 0.1 % w/w'},
       {key: 'EUDR', value: 'Regulation (EU) 2023/1115 · signed statement available on request'},
       {key: 'Food-contact', value: 'Grade available · EU 1935/2004 & EU 10/2011 declarations on request'},
       {key: 'SDS', value: 'Full 16-section Safety Data Sheet · English + Simplified Chinese · on request'},
-    ],
+    ], 'dec'),
   })
 
   await client.createOrReplace({
@@ -252,10 +262,13 @@ async function main() {
     },
   ]
   for (const s of series) {
+    const {info, uses, ...rest} = s
     await client.createOrReplace({
       _id: `series-${String(s.order).padStart(2, '0')}`,
       _type: 'productSeries',
-      ...s,
+      ...rest,
+      info: keyed(info, `s${s.order}-info`),
+      uses: uses,  // strings don't need _key
     })
     console.log(`  ✓ series-${String(s.order).padStart(2, '0')} · ${s.title}`)
   }
