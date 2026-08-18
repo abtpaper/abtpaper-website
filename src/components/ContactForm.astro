@@ -79,8 +79,8 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
   </div>
 
   <p class="tf-privacy">
-    <em>*</em> required. Your inquiry is sent directly to our sales team at
-    <b>overseas@abtpaper.com</b>. We reply within 1 – 2 business days.
+    <span class="tf-req"><em>*</em> Required fields.</span>
+    Your inquiry is sent directly to our sales team at <b>overseas@abtpaper.com</b>. We reply within 1&ndash;2 business days.
   </p>
 </form>
 
@@ -156,13 +156,27 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
   .tf-status.err { color: var(--red); }
   .tf-privacy {
     font-family: var(--font-sans);
-    font-size: 12px;
+    font-size: 12.5px;
     color: var(--muted);
-    margin: 0;
-    line-height: 1.5;
+    margin: 8px 0 0;
+    line-height: 1.6;
+    display: flex;
+    flex-wrap: wrap;
+    gap: 6px 10px;
+    align-items: baseline;
   }
-  .tf-privacy b { color: var(--ink); font-weight: 500; }
-  .tf-privacy em { color: var(--red); font-style: normal; font-weight: 700; margin-right: 4px; }
+  .tf-privacy .tf-req {
+    color: var(--ink-2);
+    font-weight: 500;
+    letter-spacing: 0.02em;
+  }
+  .tf-privacy .tf-req em {
+    color: var(--red);
+    font-style: normal;
+    font-weight: 700;
+    margin-right: 3px;
+  }
+  .tf-privacy b { color: var(--ink); font-weight: 600; }
 
   @media (max-width: 640px) {
     .tf-row { grid-template-columns: 1fr; }
