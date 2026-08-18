@@ -7,7 +7,6 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 ---
 
 <form class="talk-form" id="talk-form" novalidate>
-  <!-- Web3Forms auth key + honeypot + email routing -->
   <input type="hidden" name="access_key" value={accessKey} />
   <input type="hidden" name="subject" value="ABT website — inquiry" />
   <input type="hidden" name="from_name" value="ABT Digital Paper — website" />
@@ -15,8 +14,30 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
 
   <div class="tf-row">
     <label>
-      <span class="tf-label">Name<em>*</em></span>
-      <input type="text" name="name" required autocomplete="name" />
+      <span class="tf-label">First name<em>*</em></span>
+      <input type="text" name="first_name" required autocomplete="given-name" />
+    </label>
+    <label>
+      <span class="tf-label">Last name</span>
+      <input type="text" name="last_name" autocomplete="family-name" />
+    </label>
+  </div>
+
+  <div class="tf-row">
+    <label>
+      <span class="tf-label">Country</span>
+      <input type="text" name="country" autocomplete="country-name" />
+    </label>
+    <label>
+      <span class="tf-label">City</span>
+      <input type="text" name="city" autocomplete="address-level2" />
+    </label>
+  </div>
+
+  <div class="tf-row">
+    <label>
+      <span class="tf-label">Phone</span>
+      <input type="tel" name="phone" autocomplete="tel" />
     </label>
     <label>
       <span class="tf-label">Company</span>
@@ -24,38 +45,36 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     </label>
   </div>
 
-  <div class="tf-row">
-    <label>
-      <span class="tf-label">Email<em>*</em></span>
-      <input type="email" name="email" required autocomplete="email" />
-    </label>
-    <label>
-      <span class="tf-label">Country</span>
-      <input type="text" name="country" autocomplete="country-name" />
-    </label>
-  </div>
-
-  <div class="tf-row">
-    <label>
-      <span class="tf-label">Product interest</span>
-      <select name="product">
-        <option value="">— Select a series —</option>
-        <option value="Base Paper (offset / kraft)">Base Paper — offset / kraft</option>
-        <option value="PE-Laminated Base">PE-Laminated Base Paper</option>
-        <option value="Food-Grade Paper">Food-Grade Paper</option>
-        <option value="RC Photo Paper">RC-coated Photo Paper</option>
-        <option value="Other / not sure">Other / not sure</option>
-      </select>
-    </label>
-    <label>
-      <span class="tf-label">Estimated quantity</span>
-      <input type="text" name="quantity" placeholder="e.g. 5 tonnes/month" />
-    </label>
-  </div>
+  <label class="tf-full">
+    <span class="tf-label">E-mail<em>*</em></span>
+    <input type="email" name="email" required autocomplete="email" />
+  </label>
 
   <label class="tf-full">
-    <span class="tf-label">Message</span>
-    <textarea name="message" rows="5" placeholder="Weight / finish / format needed, use case, timeline, anything else."></textarea>
+    <span class="tf-label">Product interest</span>
+    <select name="product">
+      <option value="">— Select a series (optional) —</option>
+      <option value="Base Paper (offset / kraft)">Base Paper — offset / kraft</option>
+      <option value="PE-Laminated Base">PE-Laminated Base Paper</option>
+      <option value="Food-Grade Paper">Food-Grade Paper</option>
+      <option value="RC Photo Paper">RC-coated Photo Paper</option>
+      <option value="Other / not sure">Other / not sure</option>
+    </select>
+  </label>
+
+  <label class="tf-full">
+    <span class="tf-label">Your message</span>
+    <textarea name="message" rows="5" placeholder="Weight / finish / format needed, estimated quantity, use case, timeline, anything else."></textarea>
+  </label>
+
+  <label class="tf-consent">
+    <input type="checkbox" name="consent" required />
+    <span class="tf-consent-text">
+      <b>Data protection.</b> I consent to ABT Digital Paper storing and
+      processing my personal data for the purpose of responding to my inquiry.
+      Consent can be revoked at any time by emailing
+      <b>overseas@abtpaper.com</b>.<em>*</em>
+    </span>
   </label>
 
   <div class="tf-actions">
@@ -66,7 +85,7 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
   </div>
 
   <p class="tf-privacy">
-    Your inquiry is sent directly to our sales team at
+    <em>*</em> required. Your inquiry is sent directly to our sales team at
     <b>overseas@abtpaper.com</b>. We reply within 1 – 2 business days.
   </p>
 </form>
@@ -96,8 +115,13 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     color: var(--red);
     font-style: normal;
     margin-left: 3px;
+    font-family: var(--font-sans);
+    font-size: 13px;
+    font-weight: 700;
   }
-  .talk-form input,
+  .talk-form input[type="text"],
+  .talk-form input[type="tel"],
+  .talk-form input[type="email"],
   .talk-form select,
   .talk-form textarea {
     font-family: var(--font-sans);
@@ -119,7 +143,46 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     outline-offset: -1px;
     border-color: var(--gold);
   }
+  .talk-form input:invalid:not(:placeholder-shown),
+  .talk-form textarea:invalid:not(:placeholder-shown) {
+    border-color: color-mix(in oklab, var(--red) 60%, var(--hairline));
+  }
   .talk-form textarea { resize: vertical; min-height: 120px; }
+
+  .tf-consent {
+    display: grid !important;
+    grid-template-columns: 20px 1fr;
+    gap: 12px !important;
+    flex-direction: row !important;
+    align-items: start;
+    padding: 16px 18px;
+    background: var(--paper-2);
+    border: 1px solid var(--hairline);
+    text-transform: none !important;
+    letter-spacing: 0 !important;
+  }
+  .tf-consent input[type="checkbox"] {
+    width: 18px;
+    height: 18px;
+    margin-top: 3px;
+    accent-color: var(--gold);
+  }
+  .tf-consent-text {
+    font-family: var(--font-sans);
+    font-size: 13px;
+    color: var(--ink-2);
+    letter-spacing: 0;
+    text-transform: none;
+    line-height: 1.55;
+  }
+  .tf-consent-text b { color: var(--ink); }
+  .tf-consent-text em {
+    color: var(--red);
+    font-style: normal;
+    margin-left: 3px;
+    font-weight: 700;
+  }
+
   .tf-actions { display: flex; align-items: center; gap: 20px; margin-top: 4px; }
   .tf-submit { cursor: pointer; border: none; font-family: inherit; }
   .tf-submit[disabled] { opacity: 0.6; cursor: wait; }
@@ -139,6 +202,8 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
     line-height: 1.5;
   }
   .tf-privacy b { color: var(--ink); font-weight: 500; }
+  .tf-privacy em { color: var(--red); font-style: normal; font-weight: 700; margin-right: 4px; }
+
   @media (max-width: 640px) {
     .tf-row { grid-template-columns: 1fr; }
   }
@@ -155,12 +220,19 @@ const accessKey = import.meta.env.WEB3FORMS_ACCESS_KEY ?? "";
       ev.preventDefault();
       status.textContent = "";
       status.className = "tf-status";
+
+      // HTML5 validity check with visible message
+      if (!form.checkValidity()) {
+        form.reportValidity();
+        return;
+      }
+
       btn.disabled = true;
       const oldLabel = btn.innerHTML;
       btn.innerHTML = "Sending…";
 
       const data = new FormData(form);
-      // Basic anti-bot: if the honeypot is filled, silently discard.
+      // Anti-bot: if honeypot filled, silently drop.
       if (data.get("botcheck")) {
         btn.disabled = false;
         btn.innerHTML = oldLabel;
