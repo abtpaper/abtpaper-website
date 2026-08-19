@@ -23,6 +23,13 @@ const {
     <meta property="og:description" content={description} />
     <meta property="og:type" content="website" />
     <title>{title}</title>
+
+    <!-- Cloudflare Web Analytics — cookieless, GDPR-friendly, no consent banner needed. -->
+    <script
+      type="module"
+      src="https://static.cloudflareinsights.com/beacon.min.js"
+      data-cf-beacon='{"token": "a8a9f6c0a7d44084a9a60dd5934c94df"}'
+    ></script>
   </head>
   <body>
     <slot />

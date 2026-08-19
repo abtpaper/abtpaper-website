@@ -147,6 +147,7 @@ export const t = {
     declarations: [
       { key: "REACH", value: "Regulation (EC) 1907/2006 · Article 3(3) article · no SVHC substances at ≥ 0.1 % w/w" },
       { key: "EUDR", value: "Regulation (EU) 2023/1115 · signed statement available on request" },
+      { key: "PPWR", value: "Regulation (EU) 2025/40 · PFAS-free food-contact grades · signed statement on request" },
       { key: "Food-contact", value: "Grade available · EU 1935/2004 & EU 10/2011 declarations on request" },
       { key: "SDS", value: "Full 16-section Safety Data Sheet · English + Simplified Chinese · on request" },
     ],
