@@ -4,7 +4,6 @@ import SiteHeader from "../components/SiteHeader.astro";
 import PageHero from "../components/PageHero.astro";
 import CompanyStory from "../components/CompanyStory.astro";
 import FactoryTour from "../components/FactoryTour.astro";
-import Milestones from "../components/Milestones.astro";
 import ContactCTA from "../components/ContactCTA.astro";
 import SiteFooter from "../components/SiteFooter.astro";
 import { about } from "../content/aboutData";
@@ -30,12 +29,6 @@ import { t, contact } from "../content/homeData";
     eyebrow={about.story.eyebrow}
     title={about.story.title}
     paragraphs={about.story.paragraphs}
-  />
-
-  <Milestones
-    eyebrow={about.milestones.eyebrow}
-    title={about.milestones.title}
-    items={about.milestones.items}
   />
 
   <FactoryTour
