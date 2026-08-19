@@ -1,0 +1,63 @@
+---
+import BaseLayout from "../layouts/BaseLayout.astro";
+import SiteHeader from "../components/SiteHeader.astro";
+import PageHero from "../components/PageHero.astro";
+import CompanyStory from "../components/CompanyStory.astro";
+import FactoryTour from "../components/FactoryTour.astro";
+import Milestones from "../components/Milestones.astro";
+import ContactCTA from "../components/ContactCTA.astro";
+import SiteFooter from "../components/SiteFooter.astro";
+import { about } from "../content/aboutData";
+import { t, contact } from "../content/homeData";
+---
+
+<BaseLayout
+  title="About — ABT Digital Paper"
+  description="ABT Digital Paper — paper manufacturer in Jiangmen, Guangdong. Base paper, PE-laminated, food-grade, and RC photo paper. Founded 2008. Production since 2013. Certified by SGS."
+>
+  <SiteHeader activeNav="company" />
+
+  <PageHero
+    eyebrow={about.hero.eyebrow}
+    title={about.hero.title}
+    titleEm={about.hero.titleEm}
+    body={about.hero.body}
+    credit={about.hero.credit}
+    bg={about.hero.bg}
+  />
+
+  <CompanyStory
+    eyebrow={about.story.eyebrow}
+    title={about.story.title}
+    paragraphs={about.story.paragraphs}
+  />
+
+  <Milestones
+    eyebrow={about.milestones.eyebrow}
+    title={about.milestones.title}
+    items={about.milestones.items}
+  />
+
+  <FactoryTour
+    eyebrow={about.tour.eyebrow}
+    title={about.tour.title}
+    lede={about.tour.lede}
+    tiles={about.tour.tiles}
+  />
+
+  <ContactCTA
+    title={t.contactSection.title}
+    body={t.contactSection.body}
+    sideTitle={t.contactSection.sideTitle}
+    telLabel={t.contactSection.telLabel}
+    faxLabel={t.contactSection.faxLabel}
+    emailLabel={t.contactSection.emailLabel}
+    tel={contact.tel}
+    fax={contact.fax}
+    email={contact.email}
+    ctaLabel={t.contactSection.ctaLabel}
+    id="contact"
+  />
+
+  <SiteFooter />
+</BaseLayout>

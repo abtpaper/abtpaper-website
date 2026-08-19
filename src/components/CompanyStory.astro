@@ -1,0 +1,45 @@
+---
+interface Props {
+  eyebrow: string;
+  title: string;
+  paragraphs: string[];
+}
+const { eyebrow, title, paragraphs } = Astro.props;
+---
+
+<section class="block company-story">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">{eyebrow}</span>
+      <div>
+        <h2 class="section-title">{title}</h2>
+      </div>
+    </div>
+    <div class="story-body">
+      {paragraphs.map((p) => <p>{p}</p>)}
+    </div>
+  </div>
+</section>
+
+<style>
+  .story-body {
+    max-width: 68ch;
+    display: flex;
+    flex-direction: column;
+    gap: 20px;
+  }
+  .story-body p {
+    font-size: 17px;
+    color: var(--ink);
+    line-height: 1.65;
+    margin: 0;
+  }
+  .story-body p:first-child {
+    font-weight: 300;
+    font-size: 22px;
+    line-height: 1.4;
+    letter-spacing: -0.01em;
+    color: var(--ink);
+    max-width: 44ch;
+  }
+</style>

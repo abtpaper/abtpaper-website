@@ -1,0 +1,81 @@
+---
+interface Item {
+  year: string;
+  label: string;
+  desc: string;
+}
+interface Props {
+  eyebrow: string;
+  title: string;
+  items: Item[];
+}
+const { eyebrow, title, items } = Astro.props;
+---
+
+<section class="block milestones-block" style="background: var(--paper-2);">
+  <div class="container">
+    <div class="section-head">
+      <span class="section-eyebrow">{eyebrow}</span>
+      <div>
+        <h2 class="section-title">{title}</h2>
+      </div>
+    </div>
+    <ol class="milestones-list">
+      {
+        items.map((m) => (
+          <li>
+            <span class="ms-year">{m.year}</span>
+            <div class="ms-body">
+              <div class="ms-label">{m.label}</div>
+              <p class="ms-desc">{m.desc}</p>
+            </div>
+          </li>
+        ))
+      }
+    </ol>
+  </div>
+</section>
+
+<style>
+  .milestones-list {
+    list-style: none;
+    margin: 0;
+    padding: 0;
+    border-top: 1px solid var(--hairline);
+  }
+  .milestones-list li {
+    display: grid;
+    grid-template-columns: 140px 1fr;
+    gap: 40px;
+    padding: 24px 0;
+    border-bottom: 1px solid var(--hairline);
+    align-items: baseline;
+  }
+  .ms-year {
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: clamp(28px, 3.5vw, 48px);
+    color: var(--ink);
+    letter-spacing: -0.02em;
+    font-variant-numeric: tabular-nums;
+    line-height: 1;
+  }
+  .ms-body { display: flex; flex-direction: column; gap: 6px; max-width: 55ch; }
+  .ms-label {
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.14em;
+    color: var(--gold-deep);
+    text-transform: uppercase;
+    font-weight: 600;
+  }
+  .ms-desc {
+    margin: 0;
+    font-size: 15.5px;
+    color: var(--ink-2);
+    line-height: 1.55;
+  }
+  @media (max-width: 640px) {
+    .milestones-list li { grid-template-columns: 1fr; gap: 8px; }
+  }
+</style>

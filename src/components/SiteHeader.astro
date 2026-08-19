@@ -13,7 +13,7 @@ const { activeNav = null } = Astro.props;
     <nav class="primary" aria-label="Primary">
       <a href="/#series-01" class={activeNav === "products" ? "active" : ""}>Products</a>
       <a href="/#manuf" class={activeNav === "applications" ? "active" : ""}>Manufacturing</a>
-      <a href="/#heritage" class={activeNav === "company" ? "active" : ""}>Company</a>
+      <a href="/about" class={activeNav === "company" ? "active" : ""}>Company</a>
     </nav>
     <div class="header-tools">
       <button class="theme-toggle" onclick="toggleTheme()" aria-label="Toggle theme">
