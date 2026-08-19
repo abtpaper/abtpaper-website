@@ -1,0 +1,4 @@
+User-agent: *
+Allow: /
+
+Sitemap: https://abtpaper.com/sitemap-index.xml

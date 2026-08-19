@@ -1,0 +1,157 @@
+---
+import { getCollection } from 'astro:content'
+import BaseLayout from '../../layouts/BaseLayout.astro'
+import SiteHeader from '../../components/SiteHeader.astro'
+import SiteFooter from '../../components/SiteFooter.astro'
+
+const posts = (await getCollection('news', ({ data }) => !data.draft)).sort(
+  (a, b) => b.data.date.getTime() - a.data.date.getTime()
+)
+
+const fmt = (d: Date) =>
+  d.toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })
+---
+
+<BaseLayout
+  title="News & updates — ABT Digital Paper"
+  description="Product launches, R&D updates, compliance news, and press releases from ABT Digital Paper."
+>
+  <SiteHeader />
+
+  <section class="news-index-hero">
+    <div class="container">
+      <div class="section-eyebrow">News &amp; updates</div>
+      <h1>What's new at ABT.</h1>
+      <p class="lede">Product launches, R&amp;D notes, compliance updates, and press releases.</p>
+    </div>
+  </section>
+
+  <section class="block">
+    <div class="container">
+      {posts.length === 0 && (
+        <p class="empty">Nothing here yet. Check back soon.</p>
+      )}
+      <ol class="news-list">
+        {
+          posts.map((post) => (
+            <li>
+              <a href={`/news/${post.id}`} class="news-card">
+                {post.data.heroImage && (
+                  <div class="news-thumb">
+                    <img src={post.data.heroImage} alt="" loading="lazy" />
+                  </div>
+                )}
+                <div class="news-meta">
+                  <span class="news-date">{fmt(post.data.date)}</span>
+                  <span class="news-cat">{post.data.category}</span>
+                </div>
+                <h2 class="news-title">{post.data.title}</h2>
+                <p class="news-excerpt">{post.data.excerpt}</p>
+                <span class="news-read link-arrow">Read <span class="arr">→</span></span>
+              </a>
+            </li>
+          ))
+        }
+      </ol>
+    </div>
+  </section>
+
+  <SiteFooter />
+</BaseLayout>
+
+<style>
+  .news-index-hero {
+    padding: clamp(60px, 8vw, 110px) 0 clamp(40px, 5vw, 60px);
+    border-bottom: 1px solid var(--hairline);
+  }
+  .news-index-hero h1 {
+    font-family: var(--font-sans);
+    font-weight: 200;
+    font-size: clamp(48px, 6vw, 84px);
+    line-height: 1;
+    letter-spacing: -0.035em;
+    margin: 20px 0 20px;
+    color: var(--ink);
+    text-wrap: balance;
+  }
+  .news-index-hero .lede {
+    font-size: 17px;
+    color: var(--ink-2);
+    max-width: 55ch;
+    margin: 0;
+    line-height: 1.55;
+  }
+  .empty {
+    color: var(--muted);
+    font-family: var(--font-mono);
+    font-size: 13px;
+    letter-spacing: 0.04em;
+  }
+  .news-list {
+    list-style: none;
+    padding: 0;
+    margin: 0;
+    display: grid;
+    grid-template-columns: repeat(3, 1fr);
+    gap: 40px;
+  }
+  .news-list li { margin: 0; }
+  .news-card {
+    display: flex; flex-direction: column;
+    gap: 14px;
+    text-decoration: none;
+    color: var(--ink);
+    border-top: 1px solid var(--hairline);
+    padding-top: 20px;
+  }
+  .news-thumb {
+    aspect-ratio: 4/3;
+    background: var(--deep);
+    overflow: hidden;
+    margin-bottom: 6px;
+  }
+  .news-thumb img {
+    width: 100%; height: 100%;
+    object-fit: cover;
+    transition: transform .4s ease;
+  }
+  .news-card:hover .news-thumb img { transform: scale(1.03); }
+  .news-meta {
+    display: flex; gap: 14px; align-items: baseline;
+    font-family: var(--font-mono);
+    font-size: 11px;
+    letter-spacing: 0.1em;
+    color: var(--muted);
+    text-transform: uppercase;
+  }
+  .news-cat {
+    color: var(--gold-deep);
+    font-weight: 600;
+  }
+  .news-title {
+    font-family: var(--font-sans);
+    font-weight: 500;
+    font-size: 22px;
+    line-height: 1.2;
+    letter-spacing: -0.01em;
+    margin: 0;
+    text-wrap: balance;
+  }
+  .news-card:hover .news-title { color: var(--gold-deep); }
+  .news-excerpt {
+    font-size: 14px;
+    color: var(--ink-2);
+    margin: 0;
+    line-height: 1.55;
+  }
+  .news-read {
+    margin-top: auto;
+    align-self: flex-start;
+  }
+  @media (max-width: 900px) {
+    .news-list { grid-template-columns: 1fr 1fr; }
+  }
+  @media (max-width: 600px) {
+    .news-list { grid-template-columns: 1fr; }
+  }
+</style>
