@@ -127,7 +127,7 @@ export const t = {
     large: "We make base paper on-site at our Jiangmen plant, coat and finish it in-house, and convert to any format your line requires — full size range of sheets and rolls, OEM/ODM packaging to your spec.",
     paragraphs: [
       "That vertical integration is why the base paper and the coating on top of it match: they were made for each other, in the same building, by the same people. Nothing about a roll of ABT paper is outsourced or someone else's problem.",
-      "The result is coating consistency across four-year production runs, food-contact grades that don't require a separate supplier's certificate, and pilot-line development that goes from concept to converted sample in weeks, not quarters.",
+      "The result is batch-to-batch consistency over long production runs, food-contact grades that don't require a separate supplier's certificate, and pilot-line development that goes from concept to converted sample in weeks, not quarters.",
     ],
     image: "/photos/warehouse.jpg",
     imageAlt: "Finished-roll warehouse at the Jiangmen site",
