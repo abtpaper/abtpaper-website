@@ -1,6 +1,8 @@
 ---
 interface Props {
   bg?: string;
+  video?: string;
+  poster?: string;
   eyebrow?: string;
   titleLine1?: string;
   titleLine2?: string;
@@ -11,6 +13,8 @@ interface Props {
 }
 const {
   bg = "/photos/aerial.jpg",
+  video = "/videos/hero.mp4",
+  poster = "/videos/hero_poster.jpg",
   eyebrow = "Paper Manufacturer · Jiangmen, Guangdong · Since 2008",
   titleLine1 = "Paper",
   titleLine2 = "Reimagined",
@@ -22,7 +26,24 @@ const {
 ---
 
 <section class="landing">
-  <img class="landing-bg" src={bg} alt="ABT Digital Paper factory, aerial view" />
+  {video ? (
+    <video
+      class="landing-bg"
+      poster={poster || bg}
+      autoplay
+      muted
+      loop
+      playsinline
+      disablePictureInPicture
+      preload="metadata"
+      aria-label="ABT Digital Paper factory, aerial and production line footage"
+    >
+      <source src="/videos/hero_mobile.mp4" media="(max-width: 900px)" type="video/mp4" />
+      <source src={video} type="video/mp4" />
+    </video>
+  ) : (
+    <img class="landing-bg" src={bg} alt="ABT Digital Paper factory, aerial view" />
+  )}
   <div class="landing-overlay"></div>
   <div class="landing-nav">
     <a href="/" class="brand" aria-label="ABT Digital Paper">
