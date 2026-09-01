@@ -28,6 +28,7 @@ const {
 <section class="landing">
   {video ? (
     <video
+      id="hero-video"
       class="landing-bg"
       src="/videos/hero_v2.mp4"
       poster={poster || bg}
@@ -43,6 +44,41 @@ const {
   ) : (
     <img class="landing-bg" src={bg} alt="ABT Digital Paper factory, aerial view" />
   )}
+  <script is:inline>
+    (function () {
+      const v = document.getElementById('hero-video');
+      if (!v) return;
+      v.muted = true;
+      v.defaultMuted = true;
+      v.setAttribute('muted', '');
+      v.setAttribute('playsinline', '');
+      v.playsInline = true;
+      const start = () => {
+        const p = v.play();
+        if (p && typeof p.catch === 'function') p.catch(() => {});
+      };
+      // Try immediately, on metadata, on canplay
+      start();
+      v.addEventListener('loadedmetadata', start);
+      v.addEventListener('canplay', start);
+      // If still not playing after 1s, wire up interaction fallback
+      setTimeout(() => {
+        if (v.paused) {
+          const kick = () => {
+            start();
+            ['touchstart','touchend','click','scroll','keydown'].forEach(e =>
+              document.removeEventListener(e, kick));
+          };
+          ['touchstart','touchend','click','scroll','keydown'].forEach(e =>
+            document.addEventListener(e, kick, { once: true, passive: true }));
+        }
+      }, 1000);
+      // Some iPads only allow play after page visibility
+      document.addEventListener('visibilitychange', () => {
+        if (!document.hidden && v.paused) start();
+      });
+    })();
+  </script>
   <div class="landing-overlay"></div>
   <div class="landing-nav">
     <a href="/" class="brand" aria-label="ABT Digital Paper">
