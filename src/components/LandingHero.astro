@@ -28,22 +28,55 @@ const {
 <section class="landing">
   {video ? (
     <video
+      id="hero-video"
       class="landing-bg"
+      src="/videos/hero_mobile.mp4"
       poster={poster || bg}
       autoplay
       muted
       loop
       playsinline
+      webkit-playsinline="true"
       disablePictureInPicture
-      preload="metadata"
+      preload="auto"
+      data-video-desktop={video}
+      data-video-mobile="/videos/hero_mobile.mp4"
       aria-label="ABT Digital Paper factory, aerial and production line footage"
-    >
-      <source src="/videos/hero_mobile.mp4" media="(max-width: 900px)" type="video/mp4" />
-      <source src={video} type="video/mp4" />
-    </video>
+    ></video>
   ) : (
     <img class="landing-bg" src={bg} alt="ABT Digital Paper factory, aerial view" />
   )}
+  <script is:inline>
+    (function () {
+      const v = document.getElementById('hero-video');
+      if (!v) return;
+      const desktopSrc = v.dataset.videoDesktop;
+      const mobileSrc = v.dataset.videoMobile;
+      const pickSrc = () => (window.innerWidth <= 900 ? mobileSrc : desktopSrc);
+      v.muted = true;
+      v.setAttribute('muted', '');
+      v.playsInline = true;
+      v.src = pickSrc();
+      const tryPlay = () => {
+        const p = v.play();
+        if (p && typeof p.catch === 'function') {
+          p.catch(() => {
+            // Autoplay blocked (Low Power Mode, Reduce Motion, etc.) — poster stays.
+            // Try one more time on next user interaction.
+            const onInteract = () => {
+              v.play().catch(() => {});
+              document.removeEventListener('touchstart', onInteract);
+              document.removeEventListener('click', onInteract);
+            };
+            document.addEventListener('touchstart', onInteract, { once: true, passive: true });
+            document.addEventListener('click', onInteract, { once: true });
+          });
+        }
+      };
+      if (v.readyState >= 2) tryPlay();
+      else v.addEventListener('loadeddata', tryPlay, { once: true });
+    })();
+  </script>
   <div class="landing-overlay"></div>
   <div class="landing-nav">
     <a href="/" class="brand" aria-label="ABT Digital Paper">
