@@ -9,7 +9,9 @@ type MaybeImage = {asset?: {_ref?: string}} | undefined
 const HOME_QUERY = `{
   "settings": *[_id == "siteSettings"][0],
   "landing": *[_id == "landingHero"][0]{
-    ..., "backgroundImageUrl": backgroundImage.asset->url
+    ...,
+    "backgroundImageUrl": backgroundImage.asset->url,
+    "backgroundVideoUrl": backgroundVideo.asset->url
   },
   "pageHero": *[_id == "pageHero"][0]{
     ..., "backgroundImageUrl": backgroundImage.asset->url
@@ -67,6 +69,7 @@ export async function getHomeContent() {
       primaryCta: data.landing?.primaryCta ?? 'Explore our products',
       secondaryCta: data.landing?.secondaryCta ?? 'Talk to us',
       backgroundImage: imgUrl(data.landing?.backgroundImage, 2400) ?? '/photos/aerial.jpg',
+      backgroundVideo: data.landing?.backgroundVideoUrl ?? '',
       photoCredit: data.landing?.photoCredit ?? '',
     },
     series: (data.series ?? []).map((s: any) => ({

@@ -13,9 +13,16 @@ export default defineType({
     defineField({name: 'secondaryCta', title: 'Secondary CTA label', type: 'string'}),
     defineField({
       name: 'backgroundImage',
-      title: 'Background image (full-bleed)',
+      title: 'Background image (full-bleed, shown while video loads)',
       type: 'image',
       options: {hotspot: true},
+    }),
+    defineField({
+      name: 'backgroundVideo',
+      title: 'Background video (silent MP4, autoplays behind the hero)',
+      description: 'Drop an MP4 here to replace the still image with looping video. Keep under 15 MB.',
+      type: 'file',
+      options: {accept: 'video/mp4'},
     }),
     defineField({name: 'photoCredit', title: 'Photo credit line', type: 'string'}),
   ],
