@@ -10,11 +10,29 @@ interface Props {
   title: string;
   lede: string;
   caps: Cap[];
+  backdropVideo?: string;
 }
-const { eyebrow, title, lede, caps } = Astro.props;
+const { eyebrow, title, lede, caps, backdropVideo } = Astro.props;
 ---
 
-<section class="block">
+<section class={`block ${backdropVideo ? 'block-video' : ''}`}>
+  {backdropVideo && (
+    <>
+      <video
+        class="block-bg"
+        src={backdropVideo}
+        autoplay
+        muted
+        loop
+        playsinline
+        webkit-playsinline
+        disablePictureInPicture
+        preload="auto"
+        aria-hidden="true"
+      ></video>
+      <div class="block-bg-overlay"></div>
+    </>
+  )}
   <div class="container">
     <div class="section-head">
       <span class="section-eyebrow">{eyebrow}</span>

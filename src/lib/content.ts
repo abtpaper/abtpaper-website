@@ -19,7 +19,9 @@ const HOME_QUERY = `{
   "series": *[_type == "productSeries"] | order(order asc){
     ..., "imageUrl": image.asset->url
   },
-  "capabilities": *[_id == "capabilities"][0],
+  "capabilities": *[_id == "capabilities"][0]{
+    ..., "backdropVideoUrl": backdropVideo.asset->url
+  },
   "manuf": *[_id == "manufBand"][0]{
     ...,
     "tiles": tiles[]{ ..., "imageUrl": image.asset->url }
@@ -92,6 +94,7 @@ export async function getHomeContent() {
       title: data.capabilities?.title ?? fallback.capabilities.title,
       lede: data.capabilities?.lede ?? fallback.capabilities.lede,
       caps: data.capabilities?.caps ?? fallback.capabilities.caps,
+      backdropVideo: data.capabilities?.backdropVideoUrl ?? '',
     },
     manuf: {
       eyebrow: data.manuf?.eyebrow ?? fallback.manuf.eyebrow,

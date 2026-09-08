@@ -9,6 +9,13 @@ export default defineType({
     defineField({name: 'title', title: 'Section title', type: 'string'}),
     defineField({name: 'lede', title: 'Section lede', type: 'text', rows: 3}),
     defineField({
+      name: 'backdropVideo',
+      title: 'Background video (silent MP4, optional)',
+      description: 'Optional silent MP4 shown behind the capability numbers, dimmed. Keep under 8 MB.',
+      type: 'file',
+      options: {accept: 'video/mp4'},
+    }),
+    defineField({
       name: 'caps',
       title: 'Capability numbers',
       type: 'array',
