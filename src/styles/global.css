@@ -393,6 +393,23 @@ section.block.block-video .container { position: relative; z-index: 2; }
     linear-gradient(180deg, rgba(15,15,20,0.86) 0%, rgba(15,15,20,0.72) 40%, rgba(15,15,20,0.82) 100%);
   pointer-events: none;
 }
+/* Force light text inside video-backed sections regardless of theme */
+section.block.block-video .section-title,
+section.block.block-video .capability-num,
+section.block.block-video .capability-num em {
+  color: #fff;
+}
+section.block.block-video .section-lede,
+section.block.block-video .capability-desc {
+  color: rgba(255, 255, 255, 0.78);
+}
+section.block.block-video .capability-unit,
+section.block.block-video .section-eyebrow {
+  color: rgba(255, 255, 255, 0.62);
+}
+section.block.block-video .capability-num em {
+  color: var(--gold);
+}
 .section-head {
   display: grid;
   grid-template-columns: 240px 1fr;
